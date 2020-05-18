@@ -15,9 +15,9 @@ enum {
     TD_7_F7,
     TD_8_F8,
     TD_9_F9,
-    TD_10_F10,
-    TD_11_F11,
-    TD_12_F12,
+    TD_0_F10,
+    TD_LBRC_F11,
+    TD_RBRC_F12,
     TD_BSLASH_LBRC,
     TD_EQL_RBRC
 };
