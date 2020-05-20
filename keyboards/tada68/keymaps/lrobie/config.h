@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 // Set time for tap dance 
 //Try PERMISSIVE_HOLD and lowering TAPPING_TERM to 200 here instead
-#define TAPPING_TERM 400
+#define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
