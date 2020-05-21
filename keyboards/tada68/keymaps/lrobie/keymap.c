@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_Dvorak] = LAYOUT_65_ansi( 
   KC_GESC,  TD(TD_1_F1),    TD(TD_2_F2),    TD(TD_3_F3),    TD(TD_4_F4),    TD(TD_5_F5),    TD(TD_6_F6),    TD(TD_7_F7),    TD(TD_8_F8),    TD(TD_9_F9),    TD(TD_0_F10),    TD(TD_LBRC_F11), TD(TD_RBRC_F12),  KC_BSPC,KC_GRV, \
   KC_TAB,  KC_QUOTE,   KC_COMMA,   KC_DOT,   KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_SLASH, TD(TD_BSLASH_LBRC), TD(TD_EQL_RBRC),KC_DEL, \
-  MO(_FL), LCTL_T(KC_A),    LSFT_T(KC_O),    LGUI_T(KC_E),    LALT_T(KC_U),    KC_I,    KC_D,    RALT_T(KC_H),    RGUI_T(KC_T),    RSFT_T(KC_N),    RCTL_T(KC_S) ,KC_MINS,         KC_ENT,KC_PGUP,  \
+  MO(_FL), LCTL_T(KC_A),    LSFT_T(KC_O),    LGUI_T(KC_E),    LALT_T(KC_U),    LT(_FL,KC_I),    LT(_FL,KC_D),    RALT_T(KC_H),    RGUI_T(KC_T),    RSFT_T(KC_N),    RCTL_T(KC_S) ,KC_MINS,         KC_ENT,KC_PGUP,  \
   KC_LSPO,         KC_SCLN,   KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,KC_V, KC_Z,   KC_RSPC,KC_UP,KC_PGDN, \
   KC_LCTL, KC_LGUI,KC_LALT,                KC_SPACE,                        KC_RALT,TG(_FL),TD(TD_RCTRL_CAPS), KC_LEFT,KC_DOWN,KC_RGHT),
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_65_ansi(
   KC_GESC,  TD(TD_1_F1),    TD(TD_2_F2),    TD(TD_3_F3),    TD(TD_4_F4),    TD(TD_5_F5),    TD(TD_6_F6),    TD(TD_7_F7),    TD(TD_8_F8),    TD(TD_9_F9),    TD(TD_0_F10),    TD(TD_LBRC_F11), TD(TD_RBRC_F12),  KC_BSPC,KC_GRV, \
   KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRACKET, KC_RBRACKET,KC_BSLS,KC_DEL, \
-  MO(_FL), RCTL_T(KC_A),    RSFT_T(KC_S),    LGUI_T(KC_D),    LALT_T(KC_F),    KC_G,    KC_H,    RALT_T(KC_J),    RGUI_T(KC_K),    RSFT_T(KC_L),    RCTL_T(KC_SCLN),KC_QUOTE,         KC_ENT,KC_PGUP,  \
+  MO(_FL), RCTL_T(KC_A),    RSFT_T(KC_S),    LGUI_T(KC_D),    LALT_T(KC_F),    LT(_FL,KC_G),    LT(_FL,KC_H),    RALT_T(KC_J),    RGUI_T(KC_K),    RSFT_T(KC_L),    RCTL_T(KC_SCLN),KC_QUOTE,         KC_ENT,KC_PGUP,  \
   KC_LSPO,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMMA,KC_DOT, KC_SLASH,   KC_RSPC,KC_UP,KC_PGDN, \
   KC_LCTL, KC_LGUI,KC_LALT,                KC_SPACE,                        KC_RALT,TG(_FL),TD(TD_RCTRL_CAPS), KC_LEFT,KC_DOWN,KC_RGHT),
 
