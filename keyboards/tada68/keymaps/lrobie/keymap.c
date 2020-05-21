@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Keymap _Dvorak_Gaming: (Layer with Dvorak Layout and no mod-tap)
 [_Dvorak_Gaming] = LAYOUT_ansi( 
-  KC_GESC,  TD(TD_1_F1),    TD(TD_2_F2),    TD(TD_3_F3),    TD(TD_4_F4),    TD(TD_5_F5),    TD(TD_6_F6),    TD(TD_7_F7),    TD(TD_8_F8),    TD(TD_9_F9),    TD(TD_0_F10),    TD(TD_LBRC_F11), TD(TD_RBRC_F12),  KC_BSPC,KC_GRV, \
+  KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_10,    KC_11, KC_12,  KC_BSPC,KC_GRV, \
   KC_TAB,  KC_QUOTE,   KC_COMMA,   KC_DOT,   KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_SLASH, TD(TD_BSLASH_LBRC), TD(TD_EQL_RBRC),KC_DEL, \
   MO(_FL), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S ,KC_MINS,         KC_ENT,KC_PGUP,  \
   KC_LSPO,         KC_SCLN,   KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,KC_V, KC_Z,   KC_RSPC,KC_UP,KC_PGDN, \
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Keymap _QWERTY: (Layer with Qwerty Layout)
 [_QWERTY_Gaming] = LAYOUT_65_ansi(
-  KC_GESC,  TD(TD_1_F1),    TD(TD_2_F2),    TD(TD_3_F3),    TD(TD_4_F4),    TD(TD_5_F5),    TD(TD_6_F6),    TD(TD_7_F7),    TD(TD_8_F8),    TD(TD_9_F9),    TD(TD_0_F10),    TD(TD_MINS_F11), TD(TD_EQL_F12),  KC_BSPC,KC_GRV, \
+  KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_10,    KC_11, KC_12,  KC_BSPC,KC_GRV, \
   KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRACKET, KC_RBRACKET,KC_BSLS,KC_DEL, \
   MO(_FL), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,KC_QUOTE,         KC_ENT,KC_PGUP,  \
   KC_LSPO,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMMA,KC_DOT, KC_SLASH,   KC_RSPC,KC_UP,KC_PGDN, \
