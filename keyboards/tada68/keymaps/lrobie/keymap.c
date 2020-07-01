@@ -20,7 +20,7 @@ enum {
     TD_0_F10,
     TD_LBRC_F11,
     TD_RBRC_F12,
-    TD_BSLASH_LBRC,
+    TD_SLASH_LBRC,
     TD_EQL_RBRC,
     TD_MINS_F11,
     TD_EQL_F12
