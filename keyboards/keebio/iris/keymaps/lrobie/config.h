@@ -1,8 +1,6 @@
 #pragma once
 
 #undef RGBLED_NUM
-#define TAPPING_TOGGLE 2
-#define TAPPING_TERM 150
 #define RGBLED_NUM 12
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
