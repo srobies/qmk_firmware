@@ -24,8 +24,6 @@
         { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND) }
 #endif
 
-#define RGBLIGHT_ANIMATIONS
-
 /*
  * MIDI options
  */
