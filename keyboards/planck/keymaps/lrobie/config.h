@@ -24,6 +24,7 @@
         { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND) }
 #endif
 
+#define IGNORE_MOD_TAP_INTERRUPT
 /*
  * MIDI options
  */
