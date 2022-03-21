@@ -17,9 +17,8 @@
 #include QMK_KEYBOARD_H
 
 enum planck_layers {
-  _WIDE_DVORAK,
-  _GAMING,
   _DVORAK,
+  _GAMING,
   _QWERTY,
   _LOWER,
   _RAISE,
@@ -35,12 +34,9 @@ enum planck_keycodes {
 #define LOWER LT(_LOWER, KC_ENT)
 #define RAISE LT(_RAISE, KC_BSPC)
 
-#define SFT_A MT(MOD_LSFT, KC_A) 
-#define SFT_S MT(MOD_RSFT, KC_S)
 #define TO_DV TO(_DVORAK)
 #define TO_QW TO(_QWERTY)
 #define TO_GA TO(_GAMING)
-#define TO_WI TO(_WIDE_DVORAK)
 #define MO_AD MO(_ADJUST)
 #define QTILE LM(_RAISE, MOD_LGUI)
 
@@ -52,17 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_SCLN, KC_Q,    KC_J,   KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  KC_RSFT,
     KC_LCTL, KC_LGUI, KC_LALT, QTILE,  LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
-[_WIDE_DVORAK] = LAYOUT_planck_grid(
-    KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,  QK_GESC, KC_EQL,  KC_F,  KC_G,    KC_C,    KC_R,  KC_L,
-    SFT_A,   KC_O,    KC_E,    KC_U,  KC_I,  KC_TAB,  KC_MINS, KC_D,  KC_H,    KC_T,    KC_N,  SFT_S,
-    KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,  KC_LBRC, KC_RBRC, KC_B,  KC_M,    KC_W,    KC_V,  KC_Z,
-    KC_LCTL, KC_LGUI, KC_LALT, QTILE, LOWER, KC_SPC,  KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
-),
 [_GAMING] = LAYOUT_planck_grid(
     QK_GESC, KC_1,    KC_2,    KC_3,   KC_4, KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,   KC_F,   KC_G,   KC_C,    KC_R,    KC_L,    KC_SLSH,
     KC_LSFT, KC_A,    KC_O,    KC_E,   KC_U, KC_I,   KC_D,   KC_H,   KC_T,    KC_N,    KC_S,    KC_RSFT,
-    KC_LCTL, KC_SCLN, KC_Q,    KC_J,   KC_K, KC_SPC, KC_SPC, KC_ENT, _______, _______, _______, TO_WI
+    KC_LCTL, KC_SCLN, KC_Q,    KC_J,   KC_K, KC_SPC, KC_SPC, KC_ENT, _______, _______, _______, TO_DV
 ),
 [_QWERTY] = LAYOUT_planck_grid(
     QK_GESC, KC_Q,    KC_W,    KC_E,  KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
@@ -71,16 +61,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT, QTILE, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 [_RAISE] = LAYOUT_planck_grid(
-    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_HOME, KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+    _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, KC_END,  KC_PGDN, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, MO_AD,   _______, _______, _______, _______, _______, _______, _______
 ),
 [_LOWER] = LAYOUT_planck_grid(
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    _______, KC_UP,   _______, KC_VOLU, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,
-    KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, _______, _______, _______, _______, KC_ENT,  KC_4,    KC_5,    KC_6,
-    KC_MPLY, KC_MPRV, KC_MNXT, KC_MUTE, _______, _______, _______, MO_AD,   KC_0,    KC_1,    KC_2,    KC_3
+    _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+    _______, _______, KC_UP,   _______, KC_VOLU, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,
+    _______, KC_LEFT, KC_DOWN, _______, KC_VOLD, _______, _______, _______, KC_ENT,  KC_4,    KC_5,    KC_6,
+    KC_MPLY, KC_MPRV, KC_MNXT, _______, KC_MUTE, _______, _______, MO_AD,   KC_0,    KC_1,    KC_2,    KC_3
 ),
 
 [_PLOVER] = LAYOUT_planck_grid(
@@ -90,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX
 ),
 [_ADJUST] = LAYOUT_planck_grid(
-    RESET,   _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
-    _______, _______, _______, _______, AU_TOG,  TO_WI,   TO_GA,   TO_DV,   TO_QW,    PLOVER,  _______, _______,
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,
+    RESET,   _______, _______, _______, AU_TOG,  _______, TO_GA,   TO_DV,   TO_QW,   PLOVER,   _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 )
