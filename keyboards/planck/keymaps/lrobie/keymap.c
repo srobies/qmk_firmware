@@ -23,7 +23,8 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _PLOVER,
-  _ADJUST
+  _ADJUST,
+  _NUMPAD
 };
 
 enum planck_keycodes {
@@ -36,6 +37,7 @@ enum planck_keycodes {
 
 #define TO_DV TO(_DVORAK)
 #define TO_QW TO(_QWERTY)
+#define TO_NUM TO(_NUMPAD)
 #define TO_GA TO(_GAMING)
 #define MO_AD MO(_ADJUST)
 #define QTILE LM(_RAISE, MOD_LGUI)
@@ -81,10 +83,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_ADJUST] = LAYOUT_planck_grid(
     KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  
-    RESET,   _______, _______, _______, AU_TOG,  _______, TO_GA,   TO_DV,   TO_QW,   PLOVER,   _______, _______,
+    RESET,   _______, _______, _______, AU_TOG,  _______, TO_GA,   TO_DV,   TO_QW,    PLOVER,  TO_NUM,  _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
-)
+),
+[_NUMPAD] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______, KC_7, KC_8, KC_9,   _______,  _______, _______, _______,
+    _______, _______, _______, _______, _______, KC_4, KC_5, KC_6,   _______,  KC_UP,   _______, _______,
+    _______, _______, _______, _______, _______, KC_1, KC_2, KC_3,   KC_LEFT,  KC_DOWN, KC_RGHT, _______,
+    _______, _______, _______, _______, KC_TAB, KC_0, KC_0, KC_ENT,  _______,  _______, _______, TO_DV
+),
 
 };
 
