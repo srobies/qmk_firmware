@@ -32,7 +32,7 @@ enum planck_keycodes {
   EXT_PLV
 };
 
-#define LOWER LT(_LOWER, KC_ENT)
+#define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
 #define TO_DV TO(_DVORAK)
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT_planck_grid(
     QK_GESC, KC_QUOT, KC_COMM, KC_DOT, KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,  KC_SLSH,
     KC_TAB,  KC_A,    KC_O,    KC_E,   KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,  KC_MINS,
-    KC_LSFT, KC_SCLN, KC_Q,    KC_J,   KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  KC_RSFT,
+    KC_LSFT, KC_SCLN, KC_Q,    KC_J,   KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  KC_SFTENT,
     KC_LCTL, KC_LGUI, KC_LALT, QTILE,  LOWER, KC_SPC, KC_SPC, RAISE, KC_BSPC, KC_LEFT, KC_RGHT,_______
 ),
 [_GAMING] = LAYOUT_planck_grid(
@@ -66,13 +66,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
     _______, _______, _______, KC_EQL,  KC_LBRC, KC_HOME, KC_PGUP, KC_RBRC, KC_BSLS, _______, _______, _______,
     _______, _______, _______, _______, _______, KC_END,  KC_PGDN, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, MO_AD,   _______, _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 [_LOWER] = LAYOUT_planck_grid(
     _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
     _______, _______, KC_UP,   KC_PLUS, KC_LCBR, _______, _______, KC_RCBR, KC_PIPE, KC_7,    KC_8,    KC_9,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, KC_ENT,  KC_4,    KC_5,    KC_6,
-    KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLU, KC_VOLD, KC_MUTE, _______, MO_AD,   KC_0,    KC_1,    KC_2,    KC_3
+    KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLU, KC_VOLD, KC_MUTE, _______, _______,   KC_0,    KC_1,    KC_2,    KC_3
 ),
 
 [_PLOVER] = LAYOUT_planck_grid(
@@ -101,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-// }
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
 
 uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
