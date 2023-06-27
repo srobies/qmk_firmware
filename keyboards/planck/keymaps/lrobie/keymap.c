@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT_planck_grid(
     QK_GESC, KC_QUOT, KC_COMM, KC_DOT, KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,  KC_SLSH,
     KC_TAB,  KC_A,    KC_O,    KC_E,   KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,  KC_MINS,
-    KC_LSFT, KC_SCLN, KC_Q,    KC_J,   KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  KC_SFTENT,
-    KC_LCTL, KC_LGUI, KC_LALT, QTILE,  LOWER, KC_SPC, KC_SPC, RAISE, KC_BSPC, KC_LEFT, KC_RGHT,_______
+    KC_LSFT, KC_SCLN, KC_Q,    KC_J,   KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  SC_SENT,
+    KC_LCTL, KC_LGUI, KC_LALT, QTILE,  LOWER, KC_SPC, KC_SPC, RAISE, KC_BSPC, KC_LBRC, KC_RBRC, KC_EQL
 ),
 [_GAMING] = LAYOUT_planck_grid(
     QK_GESC, KC_1,    KC_2,    KC_3,   KC_4, KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
@@ -82,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX
 ),
 [_ADJUST] = LAYOUT_planck_grid(
-    KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  
-    RESET,   _______, _______, _______, AU_TOG,  _______, TO_GA,   TO_DV,   TO_QW,    PLOVER,  TO_NUM,  _______,
+    KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,
+    RESET,   _______, _______, _______, AU_TOGG, _______, TO_GA,   TO_DV,   TO_QW,    PLOVER,  TO_NUM,  _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 ),
