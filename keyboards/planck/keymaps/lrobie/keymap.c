@@ -17,22 +17,12 @@
 #include QMK_KEYBOARD_H
 
 enum planck_layers {
-  _GAMING,
   _HANDSDOWN,
+  _GAMING,
   _LOWER,
   _RAISE,
-  _PLOVER,
   _ADJUST,
   _NUMPAD
-};
-
-enum planck_keycodes {
-  PLOVER = SAFE_RANGE,
-  EXT_PLV,
-  COPY,
-  CUT,
-  UNDO,
-  PASTE
 };
 
 #define LOWER MO(_LOWER)
@@ -44,13 +34,18 @@ enum planck_keycodes {
 #define MO_AD MO(_ADJUST)
 #define QTILE LM(_RAISE, MOD_LGUI)
 
+#define CUT LCTL(KC_X)
+#define COPY LCTL(KC_C)
+#define PASTE LCTL(KC_V)
+#define UNDO LCTL(KC_Z)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_GAMING] = LAYOUT_planck_grid(
     QK_GESC, KC_1,    KC_2,    KC_3,   KC_4, KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,   KC_F,   KC_G,   KC_C,    KC_R,    KC_L,    KC_SLSH,
     KC_LSFT, KC_A,    KC_O,    KC_E,   KC_U, KC_I,   KC_D,   KC_H,   KC_T,    KC_N,    KC_S,    KC_RSFT,
-    KC_LCTL, KC_SCLN, KC_Q,    KC_J,   KC_K, KC_SPC, KC_SPC, KC_ENT, _______, _______, _______, TO_DV
+    KC_LCTL, KC_SCLN, KC_Q,    KC_J,   KC_K, KC_SPC, KC_SPC, KC_ENT, _______, _______, _______, TO_HD
 ),
 [_HANDSDOWN] = LAYOUT_planck_grid(
     QK_GESC, KC_W,    KC_F,    KC_M,  KC_P,  KC_V,   KC_SLSH, KC_DOT, KC_Q,    KC_SCLN, KC_QUOT, KC_Z,
@@ -71,15 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU
     ),
 
-[_PLOVER] = LAYOUT_planck_grid(
-    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   ,
-    _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
-    _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    EXT_PLV, _______, _______, KC_C,    KC_V,    _______, _______, KC_N,    KC_M,    _______, _______, _______
-),
 [_ADJUST] = LAYOUT_planck_grid(
     KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   TO_GA,   TO_DV,   TO_QW,   TO_HD,   TO_NUM,  QK_BOOT,
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   TO_GA,   TO_HD,   TO_NUM,  _______, _______, QK_BOOT,
     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -87,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, KC_7, KC_8, KC_9,   _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, KC_4, KC_5, KC_6,   _______,  KC_UP,   _______, _______,
     _______, _______, _______, _______, _______, KC_1, KC_2, KC_3,   KC_LEFT,  KC_DOWN, KC_RGHT, _______,
-    _______, _______, _______, _______, KC_TAB,  KC_0, KC_0, KC_ENT, _______,  _______, _______, TO_DV
+    _______, _______, _______, _______, KC_TAB,  KC_0, KC_0, KC_ENT, _______,  _______, _______, TO_HD
 ),
 
 };
@@ -101,68 +90,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+
+// This globally defines all key overrides to be used
+const key_override_t *key_overrides[] = {
+	&delete_key_override
+};
+
+/*
 uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   mod_state = get_mods();
   switch (keycode) {
-      case KC_BSPC:
-      {
-      // Initialize a boolean variable that keeps track
-      // of the delete key status: registered or not?
-      static bool delkey_registered;
-      if (record->event.pressed) {
-          // Detect the activation of either shift keys
-          if (mod_state & MOD_MASK_SHIFT) {
-              // First temporarily canceling both shifts so that
-              // shift isn't applied to the KC_DEL keycode
-              del_mods(MOD_MASK_SHIFT);
-              register_code(KC_DEL);
-              // Update the boolean variable to reflect the status of KC_DEL
-              delkey_registered = true;
-              // Reapplying modifier state so that the held shift key(s)
-              // still work even after having tapped the Backspace/Delete key.
-              set_mods(mod_state);
-              return false;
-          }
-      } else { // on release of KC_BSPC
-          // In case KC_DEL is still being sent even after the release of KC_BSPC
-          if (delkey_registered) {
-              unregister_code(KC_DEL);
-              delkey_registered = false;
-              return false;
-          }
-      }
-      // Let QMK process the KC_BSPC keycode as usual outside of shift
-      return true;
-    }
-    case PLOVER:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-          PLAY_SONG(plover_song);
-        #endif
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-        layer_off(_PLOVER);
-      }
-      return false;
-      break;
     case CUT:
       if (record->event.pressed) {
           SEND_STRING(SS_LCTL("x"));
@@ -190,3 +129,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+*/
