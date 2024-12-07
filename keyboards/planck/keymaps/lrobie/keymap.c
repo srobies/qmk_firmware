@@ -22,7 +22,8 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _NUMPAD
+  _NUMPAD,
+  _QTILE
 };
 
 #define LOWER MO(_LOWER)
@@ -32,7 +33,7 @@ enum planck_layers {
 #define TO_NUM TO(_NUMPAD)
 #define TO_GA TO(_GAMING)
 #define MO_AD MO(_ADJUST)
-#define QTILE LM(_RAISE, MOD_LGUI)
+#define QTILE LM(_QTILE, MOD_LGUI)
 
 #define CUT LCTL(KC_X)
 #define COPY LCTL(KC_C)
@@ -40,18 +41,17 @@ enum planck_layers {
 #define UNDO LCTL(KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-[_GAMING] = LAYOUT_planck_grid(
-    QK_GESC, KC_1,    KC_2,    KC_3,   KC_4, KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_TAB,  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,   KC_F,   KC_G,   KC_C,    KC_R,    KC_L,    KC_SLSH,
-    KC_LSFT, KC_A,    KC_O,    KC_E,   KC_U, KC_I,   KC_D,   KC_H,   KC_T,    KC_N,    KC_S,    KC_RSFT,
-    KC_LCTL, KC_SCLN, KC_Q,    KC_J,   KC_K, KC_SPC, KC_SPC, KC_ENT, _______, _______, _______, TO_HD
-),
 [_HANDSDOWN] = LAYOUT_planck_grid(
     QK_GESC, KC_W,    KC_F,    KC_M,  KC_P,  KC_V,   KC_SLSH, KC_DOT, KC_Q,    KC_SCLN, KC_QUOT, KC_Z,
     KC_TAB,  KC_R,    KC_S,    KC_N,  KC_T,  KC_B,   KC_COMM, KC_A,   KC_E,    KC_I,    KC_H,    KC_J,
     KC_LSFT, KC_X,    KC_C,    KC_L,  KC_D,  KC_G,   KC_MINS, KC_U,   KC_O,    KC_Y,    KC_K,    SC_SENT,
     KC_LCTL, KC_LGUI, KC_LALT, QTILE, LOWER, KC_SPC, KC_SPC,  RAISE,  KC_BSPC, KC_MPLY, KC_MPRV, KC_MNXT
+),
+[_GAMING] = LAYOUT_planck_grid(
+    QK_GESC, KC_1,    KC_2,    KC_3,   KC_4, KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
+    KC_TAB,  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,   KC_F,   KC_G,   KC_C,    KC_R,    KC_L,    KC_SLSH,
+    KC_LSFT, KC_A,    KC_O,    KC_E,   KC_U, KC_I,   KC_D,   KC_H,   KC_T,    KC_N,    KC_S,    KC_RSFT,
+    KC_LCTL, KC_SCLN, KC_Q,    KC_J,   KC_K, KC_SPC, KC_SPC, KC_ENT, _______, _______, _______, TO_HD
 ),
 [_RAISE] = LAYOUT_planck_grid(
     KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
@@ -65,7 +65,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, UNDO,    CUT,     COPY,    PASTE,   _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU
     ),
-
 [_ADJUST] = LAYOUT_planck_grid(
     KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   TO_GA,   TO_HD,   TO_NUM,  _______, _______, QK_BOOT,
@@ -78,13 +77,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, KC_1, KC_2, KC_3,   KC_LEFT,  KC_DOWN, KC_RGHT, _______,
     _______, _______, _______, _______, KC_TAB,  KC_0, KC_0, KC_ENT, _______,  _______, _______, TO_HD
 ),
+[_QTILE] = LAYOUT_planck_grid(
+    KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______, KC_H,    KC_J,    KC_K,    KC_L,    _______, _______, KC_A,    KC_E,    KC_I,    _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, KC_U,    KC_O,    KC_Y,    _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
 
 };
-
-#ifdef AUDIO_ENABLE
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-#endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
