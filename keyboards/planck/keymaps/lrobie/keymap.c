@@ -16,6 +16,21 @@
 
 #include QMK_KEYBOARD_H
 
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+
+#define TO_HD TO(_HANDSDOWN)
+#define TO_NUM TO(_NUMPAD)
+#define TO_GA TO(_GAMING)
+#define MO_AD MO(_ADJUST)
+#define QTILE LM(_QTILE, MOD_LGUI)
+#define TERM LM(_QTILE, MOD_LALT)
+
+#define CUT LCTL(KC_X)
+#define COPY LCTL(KC_C)
+#define PASTE LCTL(KC_V)
+#define UNDO LCTL(KC_Z)
+
 enum planck_layers {
   _HANDSDOWN,
   _GAMING,
@@ -26,26 +41,32 @@ enum planck_layers {
   _QTILE
 };
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_HOLD
+} td_state_t;
 
-#define TO_HD TO(_HANDSDOWN)
-#define TO_NUM TO(_NUMPAD)
-#define TO_GA TO(_GAMING)
-#define MO_AD MO(_ADJUST)
-#define QTILE LM(_QTILE, MOD_LGUI)
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
 
-#define CUT LCTL(KC_X)
-#define COPY LCTL(KC_C)
-#define PASTE LCTL(KC_V)
-#define UNDO LCTL(KC_Z)
+enum td_keycodes {
+    NAV // Qtile on single hold, Term on double hold
+};
+
+td_state_t cur_dance(tap_dance_state_t *state);
+void ql_finished(tap_dance_state_t *state, void *user_data);
+void ql_reset(tap_dance_state_t *state, void *user_data);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_HANDSDOWN] = LAYOUT_planck_grid(
     QK_GESC, KC_W,    KC_F,    KC_M,  KC_P,  KC_V,   KC_SLSH, KC_DOT, KC_Q,    KC_SCLN, KC_QUOT, KC_Z,
     KC_TAB,  KC_R,    KC_S,    KC_N,  KC_T,  KC_B,   KC_COMM, KC_A,   KC_E,    KC_I,    KC_H,    KC_J,
     KC_LSFT, KC_X,    KC_C,    KC_L,  KC_D,  KC_G,   KC_MINS, KC_U,   KC_O,    KC_Y,    KC_K,    SC_SENT,
-    KC_LCTL, KC_LGUI, KC_LALT, QTILE, LOWER, KC_SPC, KC_SPC,  RAISE,  KC_BSPC, KC_MPLY, KC_MPRV, KC_MNXT
+    KC_LCTL, KC_LGUI, KC_LALT, TD(NAV), LOWER, KC_SPC, KC_SPC,  RAISE,  KC_BSPC, KC_LALT, _______, _______
 ),
 [_GAMING] = LAYOUT_planck_grid(
     QK_GESC, KC_1,    KC_2,    KC_3,   KC_4, KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
@@ -97,36 +118,49 @@ const key_override_t *key_overrides[] = {
 	&delete_key_override
 };
 
-/*
-uint8_t mod_state;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  mod_state = get_mods();
-  switch (keycode) {
-    case CUT:
-      if (record->event.pressed) {
-          SEND_STRING(SS_LCTL("x"));
-      }
-      return false;
-      break;
-    case UNDO:
-      if (record->event.pressed) {
-          SEND_STRING(SS_LCTL("z"));
-      }
-      return false;
-      break;
-    case COPY:
-      if (record->event.pressed) {
-          SEND_STRING(SS_LCTL("c"));
-      }
-      return false;
-      break;
-    case PASTE:
-      if (record->event.pressed) {
-          SEND_STRING(SS_LCTL("v"));
-      }
-      return false;
-      break;
-  }
-  return true;
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->pressed) return TD_SINGLE_HOLD;
+    }
+    if (state->count == 2) {
+        if (state->pressed) return TD_DOUBLE_HOLD;
+    }
+    return TD_UNKNOWN;
 }
-*/
+
+static td_tap_t ql_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+void ql_finished(tap_dance_state_t *state, void *user_data) {
+    ql_tap_state.state = cur_dance(state);
+    switch (ql_tap_state.state) {
+        case TD_SINGLE_HOLD:
+            register_code(KC_LGUI);
+            layer_on(_QTILE);
+            break;
+        case TD_DOUBLE_HOLD:
+            register_code(KC_LALT);
+            layer_on(_QTILE);
+            break;
+        default:
+            break;
+    }
+}
+
+void ql_reset(tap_dance_state_t *state, void *user_data) {
+    if (ql_tap_state.state == TD_SINGLE_HOLD) {
+        unregister_code(KC_LGUI);
+        layer_off(_QTILE);
+    }
+    if (ql_tap_state.state == TD_DOUBLE_HOLD) {
+        unregister_code(KC_LALT);
+        layer_off(_QTILE);
+    }
+    ql_tap_state.state = TD_NONE;
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
+};
